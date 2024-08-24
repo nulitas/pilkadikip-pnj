@@ -3,46 +3,60 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Admin;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Show the login form.
+     *
+     * @return \Illuminate\View\View
      */
-    public function index()
+    public function showLoginForm()
     {
-        //
+        return view('admin.login');
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Handle the login process.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
-    public function store(Request $request)
+    public function login(Request $request)
     {
-        //
+        // Validate the incoming request
+        $request->validate([
+            'username' => 'required|string',
+            'password' => 'required|string',
+        ]);
+
+
+        $admin = Admin::where('username', $request->input('username'))->first();
+
+        if ($admin && Hash::check($request->input('password'), $admin->password)) {
+
+            session(['admin_logged_in' => true, 'admin_id' => $admin->id, 'admin_username' => $admin->username]);
+
+            return redirect()->route('admin.dashboard');
+        } else {
+
+            return back()->withErrors([
+                'username' => 'Invalid username or password.',
+            ])->withInput();
+        }
     }
 
     /**
-     * Display the specified resource.
+     * Logout the admin.
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function show(string $id)
+    public function logout()
     {
-        //
-    }
+        session()->flush();
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return redirect()->route('admin.login');
     }
 }

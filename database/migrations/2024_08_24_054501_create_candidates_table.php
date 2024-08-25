@@ -16,6 +16,13 @@ return new class extends Migration
             $table->unsignedInteger('position_id');
             $table->string('name', 30);
             $table->string('photo', 150);
+            // jurusan
+            $table->string('major', 60);
+            // program studi
+            $table->string('study', 60);
+            // angkatan
+            $table->string('generation', 10);
+
             $table->text('vision', 150);
             $table->text('mission', 150);
 

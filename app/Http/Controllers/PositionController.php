@@ -35,10 +35,17 @@ class PositionController extends Controller
         $request->validate([
             'name' => 'required|string|max:30',
             'max_vote' => 'required',
-            'priority' => 'required',
+            // 'priority' => 'required',
         ]);
 
-        Position::create($request->all());
+        $maxPriority = Position::max('priority');
+        $newPriority = $maxPriority ? $maxPriority + 1 : 1;
+
+        Position::create([
+            'name' => $request->input('name'),
+            'max_vote' => $request->input('max_vote'),
+            'priority' => $newPriority,
+        ]);
 
         return redirect()->route('positions.index')->with('success', 'positions created successfully.');
     }
@@ -62,7 +69,7 @@ class PositionController extends Controller
         $request->validate([
             'name' => 'required|string|max:30',
             'max_vote' => 'required',
-            'priority' => 'required',
+            // 'priority' => 'required',
         ]);
 
         $position->update($request->all());

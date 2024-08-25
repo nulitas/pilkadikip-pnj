@@ -5,10 +5,17 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\VoterController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\CandidateController;
+use App\Http\Controllers\VoteController;
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+Route::get('/', [VoteController::class, 'showLoginForm'])->name('vote.login');
+Route::post('/', [VoteController::class, 'login']);
+Route::get('/vote', [VoteController::class, 'voteIndex'])->name('vote.index');
+Route::post('/vote/logout', [VoteController::class, 'logout'])->name('vote.logout');
+
 
 Route::get('/admin', [AdminController::class, 'showLoginForm'])->name('admin.login');
 Route::post('/admin', [AdminController::class, 'login']);

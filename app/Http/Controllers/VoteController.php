@@ -3,46 +3,53 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Voter;
+
 
 class VoteController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+
+    public function showLoginForm()
     {
-        //
+        return view('vote.login');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function login(Request $request)
     {
-        //
+        $request->validate([
+            'student_id' => 'required',
+            'password' => 'required|string',
+        ]);
+
+        $voter = Voter::where('student_id', $request->input('student_id'))->first();
+
+        if ($voter && $request->input('password') === $voter->password) {
+            session(['voter_logged_in' => true, 'voter_id' => $voter->id, 'voter_username' => $voter->username]);
+
+            return redirect()->route('vote.index');
+        } else {
+            return back()->withErrors([
+                'student_id' => 'Invalid student ID or password.',
+            ])->withInput();
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function voteIndex()
     {
-        //
+
+        if (!session('voter_logged_in')) {
+            return redirect()->route('login.form')->with('error', 'You must be logged in to access this page.');
+        }
+
+
+        return view('vote.index');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function logout()
     {
-        //
+        session()->flush();
+
+        return redirect()->route('vote.login');
     }
 }

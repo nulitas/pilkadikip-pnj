@@ -9,8 +9,14 @@
 
 <body>
     <h1 class="text-3xl font-bold underline">
-        Hello, World!
+        Hello, User!
     </h1>
+
+    <form action="{{ route('vote.logout') }}" method="POST">
+        @csrf
+        <button type="submit" class=" px-4 py-2 bg-[#00519c] text-white rounded">Sign Out</button>
+    </form>
+
 </body>
 
 </html>

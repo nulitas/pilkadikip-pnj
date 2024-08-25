@@ -15,6 +15,9 @@ class Candidate extends Model
         'position_id',
         'name',
         'photo',
+        'major',
+        'study',
+        'generation',
         'vision',
         'mission',
     ];

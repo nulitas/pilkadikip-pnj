@@ -35,7 +35,6 @@ class PositionController extends Controller
         $request->validate([
             'name' => 'required|string|max:30',
             'max_vote' => 'required',
-            // 'priority' => 'required',
         ]);
 
         $maxPriority = Position::max('priority');
@@ -69,7 +68,6 @@ class PositionController extends Controller
         $request->validate([
             'name' => 'required|string|max:30',
             'max_vote' => 'required',
-            // 'priority' => 'required',
         ]);
 
         $position->update($request->all());

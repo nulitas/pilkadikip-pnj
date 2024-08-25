@@ -41,6 +41,9 @@
                     <li class="mb-2">
                         <a href="{{ route('positions.index') }}" class="block ">Positions</a>
                     </li>
+                    <li class="mb-2">
+                        <a href="{{ route('candidates.index') }}" class="block ">Candidates</a>
+                    </li>
 
 
 

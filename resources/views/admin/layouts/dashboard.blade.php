@@ -7,17 +7,16 @@
     <title>Admin Panel</title>
     @vite('resources/css/app.css')
     <style>
-    
         #sidebar {
             transition: transform ease-in-out 0.3s;
         }
 
-  
+
         .sidebar-open {
-            margin-left: 14rem; 
+            margin-left: 14rem;
         }
 
-      
+
         #main-content {
             transition: margin-left ease-in-out 0.3s;
         }
@@ -28,8 +27,7 @@
 
     <div class="h-screen flex overflow-hidden bg-gray-200">
         <!-- Sidebar -->
-        <div class="absolute bg-[#00519c] text-white w-56 min-h-screen overflow-y-auto"
-            id="sidebar">
+        <div class="absolute bg-[#00519c] text-white w-56 min-h-screen overflow-y-auto" id="sidebar">
             <!-- Sidebar Content -->
             <div class="p-4">
                 <h1 class="text-2xl font-semibold">Pilkadikip PNJ</h1>
@@ -40,11 +38,14 @@
                     <li class="mb-2">
                         <a href="{{ route('voters.index') }}" class="block ">Voters</a>
                     </li>
+                    <li class="mb-2">
+                        <a href="{{ route('positions.index') }}" class="block ">Positions</a>
+                    </li>
 
-                   
-                   
-            
-   
+
+
+
+
                 </ul>
             </div>
         </div>
@@ -65,7 +66,7 @@
                         <form action="{{ route('admin.logout') }}" method="POST">
                             @csrf
                             <button type="submit" class=" px-4 py-2 bg-[#00519c] text-white rounded">Sign Out</button>
-                          </form>
+                        </form>
 
                     </div>
                 </div>
@@ -84,22 +85,22 @@
 
         openSidebarButton.addEventListener('click', (e) => {
             e.stopPropagation();
-            const isSidebarOpen = !sidebar.classList.contains('-translate-x-full'); 
+            const isSidebarOpen = !sidebar.classList.contains('-translate-x-full');
 
             if (isSidebarOpen) {
-                sidebar.classList.add('-translate-x-full'); 
+                sidebar.classList.add('-translate-x-full');
                 mainContent.classList.remove('sidebar-open');
             } else {
-                sidebar.classList.remove('-translate-x-full'); 
-                mainContent.classList.add('sidebar-open'); 
+                sidebar.classList.remove('-translate-x-full');
+                mainContent.classList.add('sidebar-open');
             }
         });
 
 
         document.addEventListener('click', (e) => {
             if (!sidebar.contains(e.target) && !openSidebarButton.contains(e.target)) {
-                sidebar.classList.add('-translate-x-full'); 
-                mainContent.classList.remove('sidebar-open'); 
+                sidebar.classList.add('-translate-x-full');
+                mainContent.classList.remove('sidebar-open');
             }
         });
     </script>

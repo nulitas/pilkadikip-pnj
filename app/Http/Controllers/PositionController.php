@@ -2,47 +2,82 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Position;
 use Illuminate\Http\Request;
 
 class PositionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        if (!session('admin_logged_in')) {
+            return redirect()->route('admin.login')->with('error', 'You must be logged in to access this page.');
+        }
+
+        $positions = Position::all();
+        return view('admin.positions.index', compact('positions'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    public function create()
+    {
+        if (!session('admin_logged_in')) {
+            return redirect()->route('admin.login')->with('error', 'You must be logged in to access this page.');
+        }
+
+        return view('admin.positions.create');
+    }
+
     public function store(Request $request)
     {
-        //
+        if (!session('admin_logged_in')) {
+            return redirect()->route('admin.login')->with('error', 'You must be logged in to access this page.');
+        }
+
+        $request->validate([
+            'name' => 'required|string|max:30',
+            'max_vote' => 'required',
+            'priority' => 'required',
+        ]);
+
+        Position::create($request->all());
+
+        return redirect()->route('positions.index')->with('success', 'positions created successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function edit(Position $position)
     {
-        //
+        if (!session('admin_logged_in')) {
+            return redirect()->route('admin.login')->with('error', 'You must be logged in to access this page.');
+        }
+
+        return view('admin.positions.edit', compact('position'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+
+    public function update(Request $request, Position $position)
     {
-        //
+        if (!session('admin_logged_in')) {
+            return redirect()->route('admin.login')->with('error', 'You must be logged in to access this page.');
+        }
+
+        $request->validate([
+            'name' => 'required|string|max:30',
+            'max_vote' => 'required',
+            'priority' => 'required',
+        ]);
+
+        $position->update($request->all());
+
+        return redirect()->route('positions.index')->with('success', 'Position updated successfully.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy(Position $position)
     {
-        //
+        if (!session('admin_logged_in')) {
+            return redirect()->route('admin.login')->with('error', 'You must be logged in to access this page.');
+        }
+
+        $position->delete();
+
+        return redirect()->route('positions.index')->with('success', 'Position deleted successfully.');
     }
 }

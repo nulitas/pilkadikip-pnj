@@ -14,6 +14,7 @@ use App\Http\Controllers\VoteController;
 Route::get('/', [VoteController::class, 'showLoginForm'])->name('vote.login');
 Route::post('/', [VoteController::class, 'login']);
 Route::get('/vote', [VoteController::class, 'voteIndex'])->name('vote.index');
+Route::post('/vote/store', [VoteController::class, 'store'])->name('vote.store');
 Route::post('/vote/logout', [VoteController::class, 'logout'])->name('vote.logout');
 
 

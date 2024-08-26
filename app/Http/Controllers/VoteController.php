@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Vote;
 use App\Models\Voter;
-
+use App\Models\Candidate;
 
 class VoteController extends Controller
 {
-
     public function showLoginForm()
     {
         return view('vote.login');
@@ -36,20 +36,49 @@ class VoteController extends Controller
 
     public function voteIndex()
     {
-
         if (!session('voter_logged_in')) {
-            return redirect()->route('login.form')->with('error', 'You must be logged in to access this page.');
+            return redirect()->route('vote.login')->with('error', 'You must be logged in to access this page.');
         }
 
-
-        return view('vote.index');
+        $candidates = Candidate::all();
+        return view('vote.index', compact('candidates'));
     }
 
+    public function store(Request $request)
+    {
+        if (!session('voter_logged_in')) {
+            return redirect()->route('vote.login')->with('error', 'You must be logged in to access this page.');
+        }
+
+        $request->validate([
+            'candidate_id' => 'required|exists:candidates,id',
+        ]);
+
+        $voter_id = session('voter_id');
+        $candidate = Candidate::findOrFail($request->input('candidate_id'));
+
+
+        $existingVote = Vote::where('voter_id', $voter_id)
+            ->where('position_id', $candidate->position_id)
+            ->first();
+
+        if ($existingVote) {
+            return redirect()->route('vote.index')->with('error', 'You have already voted for this position.');
+        }
+
+        Vote::create([
+            'voter_id' => $voter_id,
+            'candidate_id' => $candidate->id,
+            'position_id' => $candidate->position_id,
+        ]);
+
+        return redirect()->route('vote.index')->with('success', 'Vote cast successfully.');
+    }
 
     public function logout()
     {
         session()->flush();
 
-        return redirect()->route('vote.login');
+        return redirect()->route('vote.login')->with('success', 'Logged out successfully.');
     }
 }

@@ -36,6 +36,9 @@
                         <a href="{{ route('admin.dashboard') }}" class="block">Dashboard</a>
                     </li>
                     <li class="mb-2">
+                        <a href="{{ route('votes.index') }}" class="block">Votes</a>
+                    </li>
+                    <li class="mb-2">
                         <a href="{{ route('voters.index') }}" class="block ">Voters</a>
                     </li>
                     <li class="mb-2">
@@ -44,10 +47,6 @@
                     <li class="mb-2">
                         <a href="{{ route('candidates.index') }}" class="block ">Candidates</a>
                     </li>
-
-
-
-
 
                 </ul>
             </div>

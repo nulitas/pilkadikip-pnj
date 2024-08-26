@@ -18,6 +18,8 @@ Route::post('/vote/store', [VoteController::class, 'store'])->name('vote.store')
 Route::post('/vote/logout', [VoteController::class, 'logout'])->name('vote.logout');
 
 
+
+
 Route::get('/admin', [AdminController::class, 'showLoginForm'])->name('admin.login');
 Route::post('/admin', [AdminController::class, 'login']);
 Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
@@ -29,6 +31,10 @@ Route::get('/admin/dashboard', function () {
     $username = session('admin_username');
     return view('admin.layouts.dashboard', compact('username'));
 })->name('admin.dashboard');
+
+// Votes
+Route::get('/admin/votes', [VoteController::class, 'votes'])->name('votes.index');
+
 
 // Voters
 Route::get('/admin/voters', [VoterController::class, 'index'])->name('voters.index');

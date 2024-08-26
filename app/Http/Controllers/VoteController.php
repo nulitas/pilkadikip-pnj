@@ -75,6 +75,17 @@ class VoteController extends Controller
         return redirect()->route('vote.index')->with('success', 'Vote cast successfully.');
     }
 
+    public function votes()
+    {
+
+
+        $votes = Vote::with(['voter', 'candidate.position'])->get();
+
+        $totalVotes = $votes->count();
+
+        return view('admin.votes.index', compact('votes', 'totalVotes'));
+    }
+
     public function logout()
     {
         session()->flush();

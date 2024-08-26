@@ -6,6 +6,7 @@ use App\Http\Controllers\VoterController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\CandidateController;
 use App\Http\Controllers\VoteController;
+use App\Http\Controllers\DashboardController;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
@@ -28,9 +29,18 @@ Route::get('/admin/dashboard', function () {
     if (!session('admin_logged_in')) {
         return redirect()->route('admin.login');
     }
+
     $username = session('admin_username');
-    return view('admin.layouts.dashboard', compact('username'));
+
+    // Fetch the counts
+    $totalCandidates = \App\Models\Candidate::count();
+    $totalPositions = \App\Models\Position::count();
+    $totalVoters = \App\Models\Voter::count();
+    $totalVotes = \App\Models\Vote::count();
+
+    return view('admin.layouts.dashboard', compact('username', 'totalCandidates', 'totalPositions', 'totalVoters', 'totalVotes'));
 })->name('admin.dashboard');
+Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 
 // Votes
 Route::get('/admin/votes', [VoteController::class, 'votes'])->name('votes.index');

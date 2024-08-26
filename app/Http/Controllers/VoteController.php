@@ -77,6 +77,9 @@ class VoteController extends Controller
 
     public function votes()
     {
+        if (!session('admin_logged_in')) {
+            return redirect()->route('admin.login')->with('error', 'You must be logged in to access this page.');
+        }
 
         $votes = Vote::with(['voter', 'candidate.position'])->get();
         $totalVotes = $votes->count();

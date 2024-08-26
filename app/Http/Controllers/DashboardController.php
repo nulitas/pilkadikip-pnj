@@ -12,7 +12,9 @@ class DashboardController extends Controller
 {
     public function index()
     {
-
+        if (!session('admin_logged_in')) {
+            return redirect()->route('admin.login')->with('error', 'You must be logged in to access this page.');
+        }
         $totalCandidates = Candidate::count();
         $totalPositions = Position::count();
         $totalVoters = Voter::count();

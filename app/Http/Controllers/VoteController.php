@@ -78,12 +78,11 @@ class VoteController extends Controller
     public function votes()
     {
 
-
         $votes = Vote::with(['voter', 'candidate.position'])->get();
-
         $totalVotes = $votes->count();
+        $candidateVotes = Candidate::withCount('votes')->get();
 
-        return view('admin.votes.index', compact('votes', 'totalVotes'));
+        return view('admin.votes.index', compact('votes', 'totalVotes', 'candidateVotes'));
     }
 
     public function logout()

@@ -13,6 +13,13 @@
         <strong>Total Votes: </strong> {{ $totalVotes }}
     </div>
 
+    <h2>Candidate Votes</h2>
+    <ul>
+        @foreach ($candidateVotes as $candidate)
+            <li>{{ $candidate->name }}: {{ $candidate->votes_count }} votes</li>
+        @endforeach
+    </ul>
+
     <table class="table">
         <thead>
             <tr>

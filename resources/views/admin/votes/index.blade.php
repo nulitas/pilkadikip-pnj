@@ -19,25 +19,41 @@
             <li>{{ $candidate->name }}: {{ $candidate->votes_count }} votes</li>
         @endforeach
     </ul>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>No.</th>
-                <th>Voter Name</th>
-                <th>Candidate Name</th>
-                <th>Position Name</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($votes as $index => $vote)
-                <tr>
-                    <td>{{ $index + 1 }}</td>
-                    <td>{{ $vote->voter->name }}</td>
-                    <td>{{ $vote->candidate->name }}</td>
-                    <td>{{ $vote->candidate->position->name }}</td>
+    <div class="overflow-x-auto">
+        <table class="table min-w-full bg-white border border-gray-200 rounded-lg shadow-sm">
+            <thead>
+                <tr class="bg-gray-100">
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No.</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Voter Name
+                    </th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Candidate Name
+                    </th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Position Name
+                    </th>
                 </tr>
-            @endforeach
-        </tbody>
-    </table>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+                @foreach ($votes as $index => $vote)
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $index + 1 }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $vote->voter->name }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $vote->candidate->name }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $vote->candidate->position->name }}
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $('.table').DataTable({
+                "paging": true,
+                "ordering": true,
+                "info": true,
+                "searching": true
+            });
+        });
+    </script>
 @endsection

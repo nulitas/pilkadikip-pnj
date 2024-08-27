@@ -6,19 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel</title>
     @vite('resources/css/app.css')
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
     <style>
         #sidebar {
             transition: transform ease-in-out 0.3s;
         }
 
-
-        .sidebar-open {
-            margin-left: 14rem;
+        .sidebar-closed #sidebar {
+            transform: translateX(-100%);
         }
-
 
         #main-content {
             transition: margin-left ease-in-out 0.3s;
+            margin-left: 14rem;
+        }
+
+        .sidebar-closed #main-content {
+            margin-left: 0;
         }
     </style>
 </head>
@@ -53,12 +60,13 @@
         </div>
 
         <!-- Main Content -->
-        <div id="main-content" class="flex-1 flex flex-col overflow-hidden sidebar-open">
+        <div id="main-content" class="flex-1 flex flex-col overflow-hidden">
             <!-- Navbar -->
             <div class="bg-white shadow">
                 <div class="container mx-auto">
                     <div class="flex justify-between items-center py-4 px-2">
-                        <button class="text-gray-500 hover:text-gray-600" id="open-sidebar">
+                        <button class="text-gray-500 hover:text-gray-600" id="toggle-sidebar">
+                            {{-- hamburger button --}}
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -81,29 +89,10 @@
     </div>
 
     <script>
-        const sidebar = document.getElementById('sidebar');
-        const openSidebarButton = document.getElementById('open-sidebar');
-        const mainContent = document.getElementById('main-content');
+        const toggleSidebarButton = document.getElementById('toggle-sidebar');
 
-        openSidebarButton.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const isSidebarOpen = !sidebar.classList.contains('-translate-x-full');
-
-            if (isSidebarOpen) {
-                sidebar.classList.add('-translate-x-full');
-                mainContent.classList.remove('sidebar-open');
-            } else {
-                sidebar.classList.remove('-translate-x-full');
-                mainContent.classList.add('sidebar-open');
-            }
-        });
-
-
-        document.addEventListener('click', (e) => {
-            if (!sidebar.contains(e.target) && !openSidebarButton.contains(e.target)) {
-                sidebar.classList.add('-translate-x-full');
-                mainContent.classList.remove('sidebar-open');
-            }
+        toggleSidebarButton.addEventListener('click', () => {
+            document.body.classList.toggle('sidebar-closed');
         });
     </script>
 </body>

@@ -32,13 +32,12 @@ Route::get('/admin/dashboard', function () {
 
     $username = session('admin_username');
 
-    // Fetch the counts
     $totalCandidates = \App\Models\Candidate::count();
     $totalPositions = \App\Models\Position::count();
     $totalVoters = \App\Models\Voter::count();
     $totalVotes = \App\Models\Vote::count();
 
-    return view('admin.layouts.dashboard', compact('username', 'totalCandidates', 'totalPositions', 'totalVoters', 'totalVotes'));
+    return view('admin.layouts.dashboard', compact('username', 'totalCandidates', 'totalPositions', 'totalVoters', 'totalVotes', 'candidateVotes'));
 })->name('admin.dashboard');
 Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 

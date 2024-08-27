@@ -1,34 +1,22 @@
 @extends('admin.layouts.dashboard')
 
 @section('content')
-    <h1>Votes</h1>
-
     @if (session('success'))
         <div class="alert alert-success">
             {{ session('success') }}
         </div>
     @endif
 
-    <div class="mb-4">
-        <strong>Total Votes: </strong> {{ $totalVotes }}
-    </div>
-
-    <h2>Candidate Votes</h2>
-    <ul>
-        @foreach ($candidateVotes as $candidate)
-            <li>{{ $candidate->name }}: {{ $candidate->votes_count }} votes</li>
-        @endforeach
-    </ul>
     <div class="overflow-x-auto">
-        <table class="table min-w-full bg-white border border-gray-200 rounded-lg shadow-sm">
+        <table class="table ">
             <thead>
-                <tr class="bg-gray-100">
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No.</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Voter Name
+                <tr class="bg-[#00519c] ,">
+                    <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">No.</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Voter Name
                     </th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Candidate Name
+                    <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Candidate Name
                     </th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Position Name
+                    <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Position Name
                     </th>
                 </tr>
             </thead>

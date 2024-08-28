@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Voter;
 use Illuminate\Http\Request;
+use App\Imports\VotersImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class VoterController extends Controller
 {
@@ -47,6 +49,21 @@ class VoterController extends Controller
         Voter::create($request->all());
 
         return redirect()->route('voters.index')->with('success', 'Voter created successfully.');
+    }
+
+    public function import(Request $request)
+    {
+        if (!session('admin_logged_in')) {
+            return redirect()->route('admin.login')->with('error', 'You must be logged in to access this page.');
+        }
+
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls,csv',
+        ]);
+
+        Excel::import(new VotersImport, $request->file('file'));
+
+        return redirect()->route('voters.index')->with('success', 'Voters imported successfully.');
     }
 
 

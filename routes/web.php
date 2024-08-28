@@ -53,6 +53,9 @@ Route::get('/admin/voters/{voter}/edit', [VoterController::class, 'edit'])->name
 Route::put('/admin/voters/{voter}', [VoterController::class, 'update'])->name('voters.update');
 Route::delete('/admin/voters/{voter}', [VoterController::class, 'destroy'])->name('voters.destroy');
 
+// Import Voters
+Route::post('/admin/voters/import', [VoterController::class, 'import'])->name('voters.import');
+
 // Positions
 Route::get('/admin/positions', [PositionController::class, 'index'])->name('positions.index');
 Route::get('/admin/positions/create', [PositionController::class, 'create'])->name('positions.create');

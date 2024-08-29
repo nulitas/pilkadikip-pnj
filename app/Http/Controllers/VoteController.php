@@ -40,9 +40,20 @@ class VoteController extends Controller
             return redirect()->route('vote.login')->with('error', 'You must be logged in to access this page.');
         }
 
-        $candidates = Candidate::all();
-        return view('vote.index', compact('candidates'));
+        $voterId = session('voter_id');
+
+
+        $candidatesByPosition = Candidate::with('position')->get()->groupBy('position.name');
+
+
+        $votedPositions = Vote::where('voter_id', $voterId)
+            ->pluck('position_id')
+            ->toArray();
+
+        return view('vote.index', compact('candidatesByPosition', 'votedPositions'));
     }
+
+
 
     public function store(Request $request)
     {

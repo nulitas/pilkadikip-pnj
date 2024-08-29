@@ -24,9 +24,9 @@
                 @foreach ($votes as $index => $vote)
                     <tr>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $index + 1 }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $vote->voter->name }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $vote->candidate->name }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $vote->candidate->position->name }}
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $vote->voter->name }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $vote->candidate->name }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $vote->candidate->position->name }}
                         </td>
                     </tr>
                 @endforeach

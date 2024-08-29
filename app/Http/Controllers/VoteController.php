@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Vote;
 use App\Models\Voter;
 use App\Models\Candidate;
+use Illuminate\Support\Facades\DB;
 
 class VoteController extends Controller
 {
@@ -50,8 +51,14 @@ class VoteController extends Controller
             ->pluck('position_id')
             ->toArray();
 
-        return view('vote.index', compact('candidatesByPosition', 'votedPositions'));
+        $voteCountsByPosition = Vote::select('position_id', DB::raw('count(*) as vote_count'))
+            ->groupBy('position_id')
+            ->pluck('vote_count', 'position_id')
+            ->toArray();
+
+        return view('vote.index', compact('candidatesByPosition', 'votedPositions', 'voteCountsByPosition'));
     }
+
 
 
 

@@ -26,39 +26,45 @@
     @foreach ($candidateVotes as $positionName => $candidates)
         <div class="my-8">
             <h3 class="text-xl font-semibold mb-4">{{ $positionName }} Votes</h3>
-            <canvas id="chart-{{ $chartId = Str::slug($positionName) }}"></canvas>
+            <canvas id="chart-{{ $chartId = Str::slug($positionName, '-') }}"></canvas>
         </div>
     @endforeach
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        const candidateVotes = @json($candidateVotes);
+        document.addEventListener('DOMContentLoaded', function() {
+            const candidateVotes = @json($candidateVotes);
+            Object.keys(candidateVotes).forEach(function(position) {
+                const candidates = candidateVotes[position];
+                const labels = candidates.map(candidate => candidate.name);
+                const votesData = candidates.map(candidate => candidate.votes_count);
 
-        Object.keys(candidateVotes).forEach(function(position) {
-            const candidates = candidateVotes[position];
-            const labels = candidates.map(candidate => candidate.name);
-            const votesData = candidates.map(candidate => candidate.votes_count);
+                const canvasId = 'chart-' + position.replace(/\s+/g, '-').toLowerCase();
+                const ctx = document.getElementById(canvasId);
 
-            const ctx = document.getElementById('chart-' + position.replace(/\s+/g, '-')).getContext('2d');
-
-            new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: '# of Votes',
-                        data: votesData,
-                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                        borderColor: 'rgba(54, 162, 235, 1)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
+                if (ctx) {
+                    new Chart(ctx.getContext('2d'), {
+                        type: 'bar',
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                label: '# of Votes',
+                                data: votesData,
+                                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                borderColor: 'rgba(54, 162, 235, 1)',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
                         }
-                    }
+                    });
+                } else {
+                    console.error('Canvas with ID ' + canvasId + ' not found.');
                 }
             });
         });

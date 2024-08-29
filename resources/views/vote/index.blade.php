@@ -32,6 +32,10 @@
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                     @foreach ($candidates as $candidate)
+                        @php
+                            $currentVoteCount = $voteCountsByPosition[$candidate->position->id] ?? 0;
+                            $maxVoteReached = $currentVoteCount >= $candidate->position->max_vote;
+                        @endphp
                         <div class="bg-white rounded-lg shadow-md p-4 transition-transform transform hover:translate-y-[-5px] hover:shadow-lg cursor-pointer candidate-card"
                             data-candidate="{{ json_encode($candidate) }}">
                             <img src="{{ asset('storage/' . $candidate->photo) }}" alt="{{ $candidate->name }}"
@@ -43,10 +47,10 @@
                                 <input type="hidden" name="candidate_id" value="{{ $candidate->id }}">
                                 <input type="hidden" name="position_id" value="{{ $candidate->position->id }}">
 
-                                @if (in_array($candidate->position->id, $votedPositions))
+                                @if (in_array($candidate->position->id, $votedPositions) || $maxVoteReached)
                                     <button type="button"
                                         class="px-4 py-2 text-white bg-gray-500 rounded cursor-not-allowed"
-                                        disabled>Voted</button>
+                                        disabled>{{ $maxVoteReached ? 'Max Votes Reached' : 'Voted' }}</button>
                                 @else
                                     <button type="submit"
                                         class="px-4 py-2 text-white bg-blue-900 rounded hover:bg-blue-800 transition-colors">Vote</button>
@@ -57,6 +61,7 @@
                 </div>
             </div>
         @endforeach
+
     </main>
 
     <footer class="text-center mt-8">
@@ -83,6 +88,8 @@
 
     <script>
         const modal = document.getElementById('candidateModal');
+
+
         document.querySelectorAll('.candidate-card').forEach(card => {
             card.addEventListener('click', function() {
                 const candidate = JSON.parse(this.getAttribute('data-candidate'));
@@ -94,10 +101,19 @@
             });
         });
 
+
+        document.querySelectorAll('.candidate-card form button').forEach(button => {
+            button.addEventListener('click', function(event) {
+                event.stopPropagation();
+            });
+        });
+
+
         document.getElementById('closeModal').addEventListener('click', function() {
             modal.classList.add('opacity-0', 'pointer-events-none');
         });
     </script>
+
 </body>
 
 </html>

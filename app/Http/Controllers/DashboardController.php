@@ -21,7 +21,6 @@ class DashboardController extends Controller
         $totalVoters = Voter::count();
         $totalVotes = Vote::count();
 
-
         $candidateVotes = Candidate::with(['position', 'votes'])
             ->get()
             ->groupBy('position.name')

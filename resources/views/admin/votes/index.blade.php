@@ -6,11 +6,11 @@
             {{ session('success') }}
         </div>
     @endif
-
+    <h1 class=" py-2 text-xl font-bold text-[#383838]">Votes</h1>
     <div class="overflow-x-auto">
         <table class="table ">
             <thead>
-                <tr class="bg-[#00519c] ,">
+                <tr class="bg-[#383838] ,">
                     <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">No.</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Voter Name
                     </th>

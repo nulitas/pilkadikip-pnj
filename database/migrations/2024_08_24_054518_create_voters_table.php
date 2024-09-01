@@ -17,11 +17,11 @@ return new class extends Migration
             $table->string('student_id', 30);
             $table->string('password', 30);
             // nama
-            $table->string('name', 30);
+            $table->string('name', 50);
             // jurusan
-            $table->string('major', 60);
+            $table->string('major', 100);
             // program studi
-            $table->string('study', 60);
+            $table->string('study', 100);
             // angkatan
             $table->string('generation', 10);
         });

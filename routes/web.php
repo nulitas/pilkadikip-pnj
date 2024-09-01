@@ -7,10 +7,6 @@ use App\Http\Controllers\PositionController;
 use App\Http\Controllers\CandidateController;
 use App\Http\Controllers\VoteController;
 use App\Http\Controllers\DashboardController;
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
 
 Route::get('/', [VoteController::class, 'showLoginForm'])->name('vote.login');
 Route::post('/', [VoteController::class, 'login']);

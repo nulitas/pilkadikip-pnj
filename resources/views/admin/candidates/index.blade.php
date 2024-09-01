@@ -13,6 +13,7 @@
     <table class="table">
         <thead>
             <tr>
+                <th>Position</th>
                 <th>Name</th>
                 <th>Photo</th>
                 <th>Major</th>
@@ -26,6 +27,7 @@
         <tbody>
             @foreach ($candidates as $candidate)
                 <tr>
+                    <td>{{ $candidate->position->name }}</td>
                     <td>{{ $candidate->name }}</td>
                     <td>
                         @if ($candidate->photo)

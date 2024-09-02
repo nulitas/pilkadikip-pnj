@@ -44,16 +44,16 @@
                         <a href="{{ route('admin.dashboard') }}" class="block">Dashboard</a>
                     </li>
                     <li class="mb-2">
-                        <a href="{{ route('votes.index') }}" class="block">Votes</a>
+                        <a href="{{ route('votes.index') }}" class="block">Yang Sudah Memilih</a>
                     </li>
                     <li class="mb-2">
-                        <a href="{{ route('voters.index') }}" class="block ">Voters</a>
+                        <a href="{{ route('voters.index') }}" class="block ">Pemilih</a>
                     </li>
                     <li class="mb-2">
-                        <a href="{{ route('positions.index') }}" class="block ">Positions</a>
+                        <a href="{{ route('positions.index') }}" class="block ">Gelar</a>
                     </li>
                     <li class="mb-2">
-                        <a href="{{ route('candidates.index') }}" class="block ">Candidates</a>
+                        <a href="{{ route('candidates.index') }}" class="block ">Kandidat</a>
                     </li>
 
                 </ul>

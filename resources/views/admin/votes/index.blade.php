@@ -6,17 +6,17 @@
             {{ session('success') }}
         </div>
     @endif
-    <h1 class=" py-2 text-xl font-bold text-[#383838]">Votes</h1>
+    <h1 class=" py-2 text-xl font-bold text-[#383838]">Yang Sudah Memilih</h1>
     <div class="overflow-x-auto">
         <table class="table ">
             <thead>
                 <tr class="bg-[#383838] ,">
                     <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">No.</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Voter Name
+                    <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Nama Pemilih
                     </th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Candidate Name
+                    <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Nama Kandidat
                     </th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Position Name
+                    <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Gelar
                     </th>
                 </tr>
             </thead>

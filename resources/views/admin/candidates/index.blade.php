@@ -1,10 +1,10 @@
 @extends('admin.layouts.dashboard')
 
 @section('content')
-    <h1 class=" py-2 text-xl font-bold text-[#383838]">Candidates</h1>
+    <h1 class=" py-2 text-2xl font-bold text-[#383838]">Kandidat</h1>
 
     <div class="flex justify-between mb-3">
-        <a href="{{ route('candidates.create') }}" class="px-4 py-2 bg-[#383838] text-white rounded">Add New Candidate</a>
+        <a href="{{ route('candidates.create') }}" class="px-4 py-2 bg-[#383838] text-white rounded">Tambah Kandidat Baru</a>
     </div>
 
     @if (session('success'))
@@ -17,14 +17,16 @@
         <table class="table" id="candidates-table">
             <thead>
                 <tr class="bg-[#383838]">
-                    <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Position</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Name</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Photo</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Major</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Study</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Generation</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Vision</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Mission</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Gelar</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Nama Lengkap
+                    </th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Foto</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Jurusan</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Program Studi
+                    </th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Angkatan</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Visi</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Misi</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Actions</th>
                 </tr>
             </thead>

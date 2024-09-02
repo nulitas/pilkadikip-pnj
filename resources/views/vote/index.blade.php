@@ -8,14 +8,21 @@
     @vite('resources/css/app.css')
 </head>
 
-<body class="font-sans bg-gray-100">
-    <header class="bg-blue-900 text-white py-4">
-        <h1 class="text-3xl font-bold text-center">Selamat datang di tempat voting</h1>
+<body class="font-sans bg-white">
+    <header class="bg-white text-[#ff4689] py-4 flex items-center justify-between px-4 md:px-8">
+        <div>
+            <h1 class="text-xl font-bold">Pemilihan Ketua Umum KIP Kuliah Politeknik Negeri Jakarta</h1>
+        </div>
+        <div class="flex space-x-4">
+            <img src="{{ asset('path_to_logo1') }}" alt="Logo 1" class="h-10">
+            <img src="{{ asset('path_to_logo2') }}" alt="Logo 2" class="h-10">
+            <img src="{{ asset('path_to_logo3') }}" alt="Logo 3" class="h-10">
+        </div>
     </header>
 
-
-    <main class="container mx-auto mt-8">
-        <h1 class="text-center text-4xl font-bold my-8">Candidates</h1>
+    <main class="container mx-auto mt-8 px-4">
+        <h1 class="text-center text-2xl font-bold  bg-[#ff4689] text-white">Calon Ketua UMUM KIP-Kuliah & Campaign
+            Manager</h1>
 
         @if ($errors->any())
             <div>
@@ -61,15 +68,25 @@
                 </div>
             </div>
         @endforeach
-
     </main>
 
-    <footer class="text-center mt-8">
+    <footer class="bg-white text-[#ff4689] py-4 flex items-center justify-between px-4 md:px-8">
         <form action="{{ route('vote.logout') }}" method="POST">
             @csrf
-            <button type="submit"
-                class="px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600 transition-colors">Sign Out</button>
+            <button type="submit" class="bg-[#ff4689] text-white px-4 py-2 rounded-full font-bold">Sign Out</button>
         </form>
+        <button class="bg-[#ff4689] text-white px-4 py-2 rounded-full font-bold">FIND US</button>
+
+        <div class="flex space-x-4">
+            <a href="https://instagram.com/pilkadikippnj" target="_blank" class="flex items-center">
+                <img src="{{ asset('path_to_instagram_icon') }}" alt="Instagram" class="h-6">
+                <span>@pilkadikippnj</span>
+            </a>
+            <a href="mailto:pilkadikippnj@gmail.com" class="flex items-center">
+                <img src="{{ asset('path_to_email_icon') }}" alt="Email" class="h-6">
+                <span>pilkadikippnj@gmail.com</span>
+            </a>
+        </div>
     </footer>
 
     <!-- Modal -->
@@ -86,9 +103,10 @@
         </div>
     </div>
 
+
+
     <script>
         const modal = document.getElementById('candidateModal');
-
 
         document.querySelectorAll('.candidate-card').forEach(card => {
             card.addEventListener('click', function() {
@@ -101,13 +119,11 @@
             });
         });
 
-
         document.querySelectorAll('.candidate-card form button').forEach(button => {
             button.addEventListener('click', function(event) {
                 event.stopPropagation();
             });
         });
-
 
         document.getElementById('closeModal').addEventListener('click', function() {
             modal.classList.add('opacity-0', 'pointer-events-none');

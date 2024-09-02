@@ -1,7 +1,7 @@
 @extends('admin.layouts.dashboard')
 
 @section('content')
-    <h1>Edit Position</h1>
+    <h1>Ubah Data Gelar</h1>
 
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -17,19 +17,19 @@
         @csrf
         @method('PUT')
         <div class="">
-            <label for="name" class="block text-sm font-medium text-gray-700">Position Name</label>
+            <label for="name" class="block text-sm font-medium text-gray-700">Nama Gelar</label>
             <input type="text"
                 class="form-control mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 id="name" name="name" value="{{ old('name', $position->name) }}">
         </div>
         <div class="">
-            <label for="max_vote" class="block text-sm font-medium text-gray-700">max_vote</label>
+            <label for="max_vote" class="block text-sm font-medium text-gray-700">Maksimal Pemilih</label>
             <input type="max_vote"
                 class="form-control mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 id="max_vote" name="max_vote" value="{{ old('max_vote', $position->max_vote) }}">
         </div>
         <div class="">
-            <label for="priority" class="block text-sm font-medium text-gray-700">Priority</label>
+            <label for="priority" class="block text-sm font-medium text-gray-700">Prioritas</label>
             <input type="text"
                 class="form-control mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 id="priority" name="priority" value="{{ old('name', $position->priority) }}">

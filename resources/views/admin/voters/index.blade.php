@@ -46,11 +46,11 @@
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $voter->generation }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                             <a href="{{ route('voters.edit', $voter->id) }}" class="btn btn-warning">Edit</a>
-                            <form action="{{ route('voters.destroy', $voter->id) }}" method="POST" class="inline-block">
+                            {{-- <form action="{{ route('voters.destroy', $voter->id) }}" method="POST" class="inline-block">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger">Delete</button>
-                            </form>
+                            </form> --}}
                         </td>
                     </tr>
                 @endforeach

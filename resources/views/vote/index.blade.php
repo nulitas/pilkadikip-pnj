@@ -15,9 +15,9 @@
             <h1 class="text-lg md:text-xl font-bold">Pemilihan Ketua Umum KIP Kuliah Politeknik Negeri Jakarta</h1>
         </div>
         <div class="flex space-x-4 justify-center md:justify-end">
-            <img src="{{ asset('path_to_logo1') }}" alt="Logo 1" class="h-8 md:h-10">
-            <img src="{{ asset('path_to_logo2') }}" alt="Logo 2" class="h-8 md:h-10">
-            <img src="{{ asset('path_to_logo3') }}" alt="Logo 3" class="h-8 md:h-10">
+            <img src="{{ asset('logo_pnj.png') }}" alt="Logo 1" class="h-8 md:h-10">
+            <img src="{{ asset('logo_pilkadiksi.png') }}" alt="Logo 2" class="h-8 md:h-10">
+            <img src="{{ asset('logo_formadiksi.png') }}" alt="Logo 3" class="h-8 md:h-10">
         </div>
         <form action="{{ route('vote.logout') }}" method="POST" class="text-center md:text-left">
             @csrf
@@ -84,11 +84,14 @@
         <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4 text-center md:text-left">
             <a href="https://instagram.com/pilkadikippnj" target="_blank"
                 class="flex items-center justify-center md:justify-start">
-                <img src="{{ asset('path_to_instagram_icon') }}" alt="Instagram" class="h-6">
+
+                <img class="h-8 md:h-10 " src="https://img.icons8.com/ios-glyphs/30/F25081/instagram-circle.png"
+                    alt="instagram-circle" />
                 <span class="ml-2">@pilkadikippnj</span>
             </a>
             <a href="mailto:pilkadikippnj@gmail.com" class="flex items-center justify-center md:justify-start">
-                <img src="{{ asset('path_to_email_icon') }}" alt="Email" class="h-6">
+                <img class="h-8 md:h-10 " src="https://img.icons8.com/ios-filled/50/F25081/circled-envelope.png"
+                    alt="circled-envelope" />
                 <span class="ml-2">pilkadikippnj@gmail.com</span>
             </a>
         </div>

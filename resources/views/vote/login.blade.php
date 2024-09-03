@@ -10,7 +10,12 @@
 
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
     <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
-        <h1 class="text-2xl font-bold text-[#383838] text-center mb-6">Pilkadikip PNJ</h1>
+        <!-- Logo -->
+        <div class="flex justify-center mb-6">
+            <img src="logo_pilkadiksi.png" alt="Pilkadikip PNJ Logo" class="h-16 w-16">
+        </div>
+
+        {{-- <h1 class="text-2xl font-bold text-[#383838] text-center mb-6">Pilkadikip PNJ</h1> --}}
 
         @if ($errors->any())
             <div class="bg-red-100 text-red-700 p-4 rounded mb-6">
@@ -62,7 +67,7 @@
 
             <div>
                 <button type="submit"
-                    class="w-full bg-[#383838] text-white font-semibold py-2 rounded-md  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#383838]">Login</button>
+                    class="w-full bg-[#383838] text-white font-semibold py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#383838]">Login</button>
             </div>
         </form>
     </div>

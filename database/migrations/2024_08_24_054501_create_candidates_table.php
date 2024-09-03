@@ -14,14 +14,14 @@ return new class extends Migration
         Schema::create('candidates', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('position_id');
-            $table->string('name', 50);
+            $table->string('name', 150);
             $table->string('photo', 150);
             // jurusan
-            $table->string('major', 100);
+            $table->string('major', 150);
             // program studi
-            $table->string('study', 100);
+            $table->string('study', 150);
             // angkatan
-            $table->string('generation', 10);
+            $table->string('generation', 20);
 
             $table->text('vision', 150);
             $table->text('mission', 150);

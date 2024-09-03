@@ -25,8 +25,7 @@
                     <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Program Studi
                     </th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Angkatan</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Visi</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Misi</th>
+
                     <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Actions</th>
                 </tr>
             </thead>
@@ -46,8 +45,7 @@
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $candidate->major }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $candidate->study }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $candidate->generation }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $candidate->vision }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $candidate->mission }}</td>
+
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                             <a href="{{ route('candidates.edit', $candidate->id) }}" class="btn btn-warning">Edit</a>
                             <form action="{{ route('candidates.destroy', $candidate->id) }}" method="POST"

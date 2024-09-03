@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel</title>
+    <title>Admin | Dashboard</title>
     @vite('resources/css/app.css')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -35,7 +35,7 @@
 
     <div class="h-screen flex overflow-hidden bg-gray-200">
         <!-- Sidebar -->
-        <div class="absolute bg-[#00519c] text-white w-56 min-h-screen overflow-y-auto" id="sidebar">
+        <div class="absolute bg-[#383838] text-white w-56 min-h-screen overflow-y-auto" id="sidebar">
             <!-- Sidebar Content -->
             <div class="p-4">
                 <h1 class="text-2xl font-semibold">Pilkadikip PNJ</h1>
@@ -76,7 +76,7 @@
                         </button>
                         <form action="{{ route('admin.logout') }}" method="POST">
                             @csrf
-                            <button type="submit" class=" px-4 py-2 bg-[#00519c] text-white rounded">Sign Out</button>
+                            <button type="submit" class=" px-4 py-2 bg-[#383838] text-white rounded">Sign Out</button>
                         </form>
 
                     </div>

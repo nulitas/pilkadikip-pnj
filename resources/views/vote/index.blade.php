@@ -8,28 +8,31 @@
     @vite('resources/css/app.css')
 </head>
 
-<body class="font-sans bg-white">
+<body class="font-sans bg-white flex flex-col min-h-screen">
     <header
         class="bg-white text-[#ff4689] py-4 flex flex-col md:flex-row items-center justify-between px-4 md:px-8 space-y-4 md:space-y-0">
         <div class="text-center md:text-left">
             <h1 class="text-lg md:text-xl font-bold">Pemilihan Ketua Umum KIP Kuliah Politeknik Negeri Jakarta</h1>
         </div>
-        <div class="flex space-x-4 justify-center md:justify-end">
-            <img src="{{ asset('logo_pnj.png') }}" alt="Logo 1" class="h-8 md:h-10">
-            <img src="{{ asset('logo_pilkadiksi.png') }}" alt="Logo 2" class="h-8 md:h-10">
-            <img src="{{ asset('logo_formadiksi.png') }}" alt="Logo 3" class="h-8 md:h-10">
+        <div
+            class="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4 justify-center md:justify-end">
+            <div class="flex space-x-4">
+                <img src="{{ asset('logo_pnj.png') }}" alt="Logo 1" class="h-8 md:h-10">
+                <img src="{{ asset('logo_pilkadiksi.png') }}" alt="Logo 2" class="h-8 md:h-10">
+                <img src="{{ asset('logo_formadiksi.png') }}" alt="Logo 3" class="h-8 md:h-10">
+            </div>
+            <form action="{{ route('vote.logout') }}" method="POST" class="md:ml-4">
+                @csrf
+                <button type="submit" class="bg-[#ff4689] text-white px-4 py-2 rounded-full font-bold">Sign
+                    Out</button>
+            </form>
         </div>
-        <form action="{{ route('vote.logout') }}" method="POST" class="text-center md:text-left">
-            @csrf
-            <button type="submit" class="bg-[#ff4689] text-white px-4 py-2 rounded-full font-bold">Sign Out</button>
-        </form>
     </header>
 
-    <main class="container mx-auto mt-8 px-4">
-        <h1 class="text-center text-2xl font-bold rounded-md py-2  bg-[#ff4689] text-white">Calon Ketua UMUM KIP-Kuliah
-            &
-            Campaign
-            Manager</h1>
+    <main class="container mx-auto mt-8 px-4 flex-grow">
+        <h1 class="text-center text-2xl font-bold rounded-md py-2 bg-[#ff4689] text-white">
+            Calon Ketua UMUM KIP-Kuliah & Campaign Manager
+        </h1>
 
         @if ($errors->any())
             <div>
@@ -41,40 +44,50 @@
             </div>
         @endif
         @foreach ($candidatesByPosition as $positionName => $candidates)
-            <div class="my-8">
-                {{-- <h2 class="text-2xl text-[#ff4689] font-bold mb-4">{{ $positionName }}</h2> --}}
+            <div class="my-8 flex justify-center">
+                <div class="flex flex-wrap justify-center gap-6">
+                    @php
+                        $hasVotedForPosition = in_array($candidates[0]->position->id, $votedPositions);
+                    @endphp
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                    @foreach ($candidates as $candidate)
-                        @php
-                            $currentVoteCount = $voteCountsByPosition[$candidate->position->id] ?? 0;
-                            $maxVoteReached = $currentVoteCount >= $candidate->position->max_vote;
-                        @endphp
-                        <div class="bg-white rounded-lg shadow-md p-4 transition-transform transform hover:translate-y-[-5px] hover:shadow-lg cursor-pointer candidate-card"
-                            data-candidate="{{ json_encode($candidate) }}">
-                            <img src="{{ asset('storage/' . $candidate->photo) }}" alt="{{ $candidate->name }}"
-                                class="w-full h-64 object-cover rounded-md mb-4">
-                            <h3 class="text-lg font-medium text-gray-900 text-center">{{ $candidate->name }}</h3>
-
-                            <form action="{{ route('vote.store') }}" method="POST" class="text-center mt-4">
-                                @csrf
-                                <input type="hidden" name="candidate_id" value="{{ $candidate->id }}">
-                                <input type="hidden" name="position_id" value="{{ $candidate->position->id }}">
-
-                                @if (in_array($candidate->position->id, $votedPositions) || $maxVoteReached)
-                                    <button type="button"
-                                        class="px-4 py-2 text-white bg-[#771d3e] rounded cursor-not-allowed"
-                                        disabled>{{ $maxVoteReached ? 'Jumlah Pemilih Sudah Maksimal' : 'Sudah Memilih' }}</button>
-                                @else
-                                    <button type="submit"
-                                        class="px-4 py-2 text-white bg-[#ff4689] rounded ">Vote</button>
-                                @endif
-                            </form>
+                    @if ($hasVotedForPosition)
+                        <div class="p-4 flex justify-center items-center">
+                            <h3 class="text-lg font-medium text-gray-900">Terima kasih sudah memilih!</h3>
                         </div>
-                    @endforeach
+                    @else
+                        @foreach ($candidates as $candidate)
+                            @php
+                                $currentVoteCount = $voteCountsByPosition[$candidate->position->id] ?? 0;
+                                $maxVoteReached = $currentVoteCount >= $candidate->position->max_vote;
+                            @endphp
+
+                            <div class="bg-white rounded-lg shadow-md p-4 transition-transform transform hover:translate-y-[-5px] hover:shadow-lg cursor-pointer candidate-card"
+                                data-candidate="{{ json_encode($candidate) }}">
+                                <img src="{{ asset('storage/' . $candidate->photo) }}" alt="{{ $candidate->name }}"
+                                    class="w-full h-64 object-cover rounded-md mb-4">
+                                <h3 class="text-lg font-medium text-gray-900 text-center">{{ $candidate->name }}</h3>
+
+                                <form action="{{ route('vote.store') }}" method="POST" class="text-center mt-4">
+                                    @csrf
+                                    <input type="hidden" name="candidate_id" value="{{ $candidate->id }}">
+                                    <input type="hidden" name="position_id" value="{{ $candidate->position->id }}">
+
+                                    @if ($maxVoteReached)
+                                        <button type="button"
+                                            class="px-4 py-2 text-white bg-[#771d3e] rounded cursor-not-allowed"
+                                            disabled>Jumlah Pemilih Sudah Maksimal</button>
+                                    @else
+                                        <button type="submit"
+                                            class="px-4 py-2 text-white bg-[#ff4689] rounded ">Vote</button>
+                                    @endif
+                                </form>
+                            </div>
+                        @endforeach
+                    @endif
                 </div>
             </div>
         @endforeach
+
     </main>
 
     <footer
@@ -84,7 +97,6 @@
         <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4 text-center md:text-left">
             <a href="https://instagram.com/pilkadikippnj" target="_blank"
                 class="flex items-center justify-center md:justify-start">
-
                 <img class="h-8 md:h-10 " src="https://img.icons8.com/ios-glyphs/30/F25081/instagram-circle.png"
                     alt="instagram-circle" />
                 <span class="ml-2">@pilkadikippnj</span>
@@ -96,7 +108,6 @@
             </a>
         </div>
     </footer>
-
 
     <!-- Modal -->
     <div id="candidateModal"
@@ -111,8 +122,6 @@
             <button id="closeModal" class="mt-6 px-4 py-2 bg-[#ff4689] text-white rounded ">Close</button>
         </div>
     </div>
-
-
 
     <script>
         const modal = document.getElementById('candidateModal');

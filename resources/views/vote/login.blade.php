@@ -15,7 +15,6 @@
             <img src="logo_pilkadiksi.png" alt="Pilkadikip PNJ Logo" class="h-16 w-16">
         </div>
 
-        {{-- <h1 class="text-2xl font-bold text-[#383838] text-center mb-6">Pilkadikip PNJ</h1> --}}
 
         @if ($errors->any())
             <div class="bg-red-100 text-red-700 p-4 rounded mb-6">
@@ -30,17 +29,17 @@
         <form action="{{ route('vote.login') }}" method="POST">
             @csrf
             <div class="mb-4">
-                <label for="student_id" class="block text-[#383838] font-medium mb-2">NIM:</label>
+                <label for="student_id" class="block text-[#ff4689]  font-medium mb-2">NIM:</label>
                 <input type="number" name="student_id" id="student_id" value="{{ old('student_id') }}"
-                    class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#383838]"
+                    class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#ff4689] "
                     required>
             </div>
 
             <div class="mb-6">
-                <label for="password" class="block text-[#383838] font-medium mb-2">Password:</label>
+                <label for="password" class="block text-[#ff4689]  font-medium mb-2">Password:</label>
                 <div class="relative">
                     <input type="password" name="password" id="password"
-                        class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#383838]"
+                        class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#ff4689] "
                         required>
                     <button type="button" onclick="togglePassword()"
                         class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm text-gray-600">
@@ -67,7 +66,7 @@
 
             <div>
                 <button type="submit"
-                    class="w-full bg-[#383838] text-white font-semibold py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#383838]">Login</button>
+                    class="w-full bg-[#ff4689]  text-white font-semibold py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#ff4689] ">Login</button>
             </div>
         </form>
     </div>

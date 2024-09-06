@@ -26,6 +26,8 @@
                     </th>
                     {{-- <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Gelar
                     </th> --}}
+                    <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Actions
+                    </th>
                 </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
@@ -38,8 +40,7 @@
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $vote->voter->study }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $vote->voter->generation }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $vote->candidate->name }}</td>
-                        {{-- <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $vote->candidate->position->name }} --}}
-                        </td>
+
                     </tr>
                 @endforeach
             </tbody>

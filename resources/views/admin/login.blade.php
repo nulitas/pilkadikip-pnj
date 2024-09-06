@@ -10,8 +10,10 @@
 
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
     <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
-        <h1 class="text-2xl font-bold text-[#383838] text-center mb-6">Admin Login</h1>
-
+        <!-- Logo -->
+        <div class="flex justify-center mb-6">
+            <img src="logo_pilkadiksi.png" alt="Pilkadikip PNJ Logo" class="h-16 w-16">
+        </div>
         @if ($errors->any())
             <div class="bg-red-100 text-red-700 p-4 rounded mb-6">
                 <ul class="list-disc pl-5">

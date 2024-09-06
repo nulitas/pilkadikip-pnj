@@ -64,7 +64,7 @@
                             <div class="bg-white rounded-lg shadow-md p-4 transition-transform transform hover:translate-y-[-5px] hover:shadow-lg cursor-pointer candidate-card"
                                 data-candidate="{{ json_encode($candidate) }}">
                                 <img src="{{ asset('storage/' . $candidate->photo) }}" alt="{{ $candidate->name }}"
-                                    class="w-full h-64 object-cover rounded-md mb-4">
+                                    class="w-full h-96 object-cover rounded-md mb-4">
                                 <h3 class="text-lg font-medium text-gray-900 text-center">{{ $candidate->name }}</h3>
 
                                 <form action="{{ route('vote.store') }}" method="POST" class="text-center mt-4">

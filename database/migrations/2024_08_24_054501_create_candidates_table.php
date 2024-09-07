@@ -25,6 +25,7 @@ return new class extends Migration
 
             $table->text('vision', 150);
             $table->text('mission', 150);
+            $table->text('link', 100);
 
             $table->foreign('position_id')->references('id')->on('positions')->onDelete('cascade');
         });

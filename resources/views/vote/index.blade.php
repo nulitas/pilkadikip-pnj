@@ -61,26 +61,42 @@
                                 $maxVoteReached = $currentVoteCount >= $candidate->position->max_vote;
                             @endphp
 
-                            <div class="bg-white rounded-lg shadow-md p-4 transition-transform transform hover:translate-y-[-5px] hover:shadow-lg cursor-pointer candidate-card"
-                                data-candidate="{{ json_encode($candidate) }}">
-                                <img src="{{ asset('storage/' . $candidate->photo) }}" alt="{{ $candidate->name }}"
-                                    class="w-full h-96 object-cover rounded-md mb-4">
-                                <h3 class="text-lg font-medium text-gray-900 text-center">{{ $candidate->name }}</h3>
+                            <!-- Wrapping the candidate card and video link in a parent div -->
+                            <div class="flex flex-col items-center">
+                                <!-- Candidate Card -->
+                                <div class="bg-white rounded-lg shadow-md p-4 transition-transform transform hover:translate-y-[-5px] hover:shadow-lg cursor-pointer candidate-card"
+                                    data-candidate="{{ json_encode($candidate) }}">
+                                    <img src="{{ asset('storage/' . $candidate->photo) }}" alt="{{ $candidate->name }}"
+                                        class="w-full h-96 object-cover rounded-md mb-4">
+                                    <h3 class="text-lg font-medium text-gray-900 text-center">{{ $candidate->name }}
+                                    </h3>
 
-                                <form action="{{ route('vote.store') }}" method="POST" class="text-center mt-4">
-                                    @csrf
-                                    <input type="hidden" name="candidate_id" value="{{ $candidate->id }}">
-                                    <input type="hidden" name="position_id" value="{{ $candidate->position->id }}">
+                                    <form action="{{ route('vote.store') }}" method="POST" class="text-center mt-4">
+                                        @csrf
+                                        <input type="hidden" name="candidate_id" value="{{ $candidate->id }}">
+                                        <input type="hidden" name="position_id"
+                                            value="{{ $candidate->position->id }}">
 
-                                    @if ($maxVoteReached)
-                                        <button type="button"
-                                            class="px-4 py-2 text-white bg-[#771d3e] rounded cursor-not-allowed"
-                                            disabled>Jumlah Pemilih Sudah Maksimal</button>
-                                    @else
-                                        <button type="submit"
-                                            class="px-4 py-2 text-white bg-[#ff4689] rounded ">Vote</button>
-                                    @endif
-                                </form>
+                                        @if ($maxVoteReached)
+                                            <button type="button"
+                                                class="px-4 py-2 text-white bg-[#771d3e] rounded cursor-not-allowed"
+                                                disabled>Jumlah Pemilih Sudah Maksimal</button>
+                                        @else
+                                            <button type="button"
+                                                class="px-4 py-2 text-white bg-[#ff4689] rounded vote-button hover:shadow-lg transition duration-300 ease-in-out">Vote</button>
+                                        @endif
+                                    </form>
+                                </div>
+
+                                <!-- Video Link -->
+                                <div class="text-center mt-4">
+                                    <a href="{{ $candidate->link }}"
+                                        class="video-link inline-block px-4 py-2 text-white bg-[#ff4689] rounded font-semibold hover:shadow-lg transition duration-300 ease-in-out"
+                                        target="_blank">
+                                        Video Perkenalan
+                                    </a>
+
+                                </div>
                             </div>
                         @endforeach
                     @endif
@@ -109,7 +125,7 @@
         </div>
     </footer>
 
-    <!-- Modal -->
+    <!-- Candidate Info Modal -->
     <div id="candidateModal"
         class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 pointer-events-none transition-opacity duration-300">
         <div class="bg-white rounded-lg shadow-lg w-11/12 md:w-1/2 lg:w-1/3 p-6">
@@ -123,11 +139,29 @@
         </div>
     </div>
 
+    <!-- Vote Confirmation Modal -->
+    <div id="confirmVoteModal"
+        class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-white rounded-lg shadow-lg w-11/12 md:w-1/2 lg:w-1/3 p-6">
+            <h2 class="text-2xl font-bold mb-4">Konfirmasi Pilihan Anda</h2>
+            <p id="modalCandidateNameConfirm" class="text-lg font-medium text-gray-900 mb-4 text-center"></p>
+            <div class="flex justify-end">
+                <button id="cancelVote" class="mr-4 px-4 py-2 bg-gray-300 text-gray-700 rounded">Cancel</button>
+                <button id="confirmVote" class="px-4 py-2 bg-[#ff4689] text-white rounded">Confirm</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         const modal = document.getElementById('candidateModal');
 
         document.querySelectorAll('.candidate-card').forEach(card => {
-            card.addEventListener('click', function() {
+            card.addEventListener('click', function(event) {
+
+                if (event.target.classList.contains('video-link')) {
+                    return;
+                }
+
                 const candidate = JSON.parse(this.getAttribute('data-candidate'));
                 document.getElementById('modalCandidateName').innerText = candidate.name;
                 document.getElementById('modalCandidateMission').innerText = candidate.mission;
@@ -145,6 +179,36 @@
 
         document.getElementById('closeModal').addEventListener('click', function() {
             modal.classList.add('opacity-0', 'pointer-events-none');
+        });
+
+        const confirmVoteModal = document.getElementById('confirmVoteModal');
+        let formToSubmit = null;
+
+        document.querySelectorAll('.vote-button').forEach(button => {
+            button.addEventListener('click', function(event) {
+                event.preventDefault();
+                event.stopPropagation();
+
+                const candidateCard = this.closest('.candidate-card');
+                const candidate = JSON.parse(candidateCard.getAttribute('data-candidate'));
+
+                document.getElementById('modalCandidateNameConfirm').innerText =
+                    `Anda memilih: ${candidate.name}`;
+
+                formToSubmit = this.closest('form');
+
+                confirmVoteModal.classList.remove('opacity-0', 'pointer-events-none');
+            });
+        });
+
+        document.getElementById('confirmVote').addEventListener('click', function() {
+            if (formToSubmit) {
+                formToSubmit.submit();
+            }
+        });
+
+        document.getElementById('cancelVote').addEventListener('click', function() {
+            confirmVoteModal.classList.add('opacity-0', 'pointer-events-none');
         });
     </script>
 

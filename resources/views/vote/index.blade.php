@@ -76,11 +76,12 @@
                                         <input type="hidden" name="candidate_id" value="{{ $candidate->id }}">
                                         <input type="hidden" name="position_id"
                                             value="{{ $candidate->position->id }}">
-
                                         @if ($maxVoteReached)
                                             <button type="button"
-                                                class="px-4 py-2 text-white bg-[#771d3e] rounded cursor-not-allowed"
+                                                class="px-4 py-2 text-white bg-[#ff4689]  rounded cursor-not-allowed"
                                                 disabled>Jumlah Pemilih Sudah Maksimal</button>
+                                        @elseif ($candidate->position->priority != 1)
+                                            <p></p>
                                         @else
                                             <button type="button"
                                                 class="px-4 py-2 text-white bg-[#ff4689] rounded vote-button hover:shadow-lg transition duration-300 ease-in-out">Vote</button>

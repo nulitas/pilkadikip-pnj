@@ -3,7 +3,7 @@
 <table>
 <tr>
 <td>
-  Ini sebuah aplikasi untuk Pemilihan Ketua Umum Bidikmisi KIP-K <strong>Politeknik Negeri Jakarta</strong>.
+ Aplikasi untuk Pemilihan Ketua Umum Bidikmisi KIP-K <strong>Politeknik Negeri Jakarta</strong>.
 </td>
 </tr>
 </table>

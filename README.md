@@ -1,18 +1,27 @@
 # Pilkadikip PNJ
 
-<table>
-<tr>
-<td>
- Aplikasi untuk Pemilihan Ketua Umum Bidikmisi KIP-K <strong>Politeknik Negeri Jakarta</strong>.
-</td>
-</tr>
-</table>
+> Application for the Election of the General Chairperson of Bidikmisi KIP-K at Politeknik Negeri Jakarta (PNJ).
 
-## Built with
+## ✨ Features
+- Secure voting mechanism
+- Real-time vote tallying and dashboard
+- Candidate profile management
 
-- [Laravel - PHP](https://laravel.com/) - Laravel is a web application framework with expressive, elegant syntax. We’ve already laid the foundation — freeing you to create without sweating the small things.
-- [TailwindCSS](https://tailwindcss.com/) - A utility-first CSS framework packed with classes like flex, pt-4, text-center and rotate-90 that can be composed to build any design, directly in your markup.
+## 🚀 Getting Started
 
-- ## License
+### Prerequisites
+- PHP & Composer
+- Node.js & NPM
 
-MIT © [Andra ](https://github.com/nulitas)
+### Setup
+1. Install PHP dependencies: `composer install`
+2. Install Node dependencies: `npm install`
+3. Configure your `.env` for the database connections.
+4. Run migrations: `php artisan migrate`
+
+## 🛠️ Built With
+- **[Laravel](https://laravel.com/)** - PHP Web Framework
+- **[Tailwind CSS](https://tailwindcss.com/)** - Utility-first CSS framework
+
+## 📝 License
+Distributed under the MIT License © [Andra](https://github.com/nulitas)
